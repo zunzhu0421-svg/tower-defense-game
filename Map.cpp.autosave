@@ -1,0 +1,68 @@
+#include "Map.h"
+
+
+Map::Map(int r[][2],int l,int w)
+{
+    road=r;
+    length=l;
+    width=w;
+}
+int Map::get_length ()const
+{
+    return length;
+}
+int Map::get_road(const int i,const int j)const
+{
+    return road[i][j];
+}
+int Map::direction(const int i)const
+{
+    if(road[i+1][0]==road[i][0]+1)
+        return 1;
+    if(road[i+1][0]==road[i][0]-1)
+        return -1;
+    if(road[i+1][1]==road[i][1]+1)
+        return 2;
+    if(road[i+1][1]==road[i][1]-1)
+        return -2;
+    return 0;
+}//1:x+1 -1:x-1; 2:y+1  -2:y-1  0:error
+Point Map::transtoxy(int d)const
+{
+    double x=road[0][0];
+    double y=road[0][1];
+    int dir,t;
+    for(int i=0;i<length-1&&d;i++)
+    {
+        dir=direction(i);
+        if(d>width)
+        {
+            t=width;
+            d-=width;
+        }
+        else
+        {
+            t=d;
+            d=0;
+        }            
+        switch(dir)
+        {
+        case 1:
+            x+=t;
+            break;
+        case -1:
+            x-=t;
+            break;
+        case 2:
+            y+=t;
+            break;
+        case -2:
+            y-=t;
+            break;
+        case 0:
+            break;
+        }
+    }
+    Point(x,y);
+    ret
+}
